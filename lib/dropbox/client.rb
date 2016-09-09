@@ -126,8 +126,11 @@ module Dropbox
     #
     # @param [String] path
     # @return [Array<Dropbox::Metadata>]
-    def list_folder(path)
-      resp = request('/files/list_folder', path: path)
+    def list_folder(path, recursive: false)
+      resp = request('/files/list_folder', {
+        path: path,
+        recursive: recursive
+      })
       resp['entries'].map { |e| parse_tagged_response(e) }
     end
 
